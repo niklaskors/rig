@@ -1,0 +1,57 @@
+{
+  "workspaces": {
+    "work": {
+      "description": "The day job",
+      "cwd": "~/Developer",
+      "default": "start",
+      "scripts": {
+        "start": {
+          "description": "Board and todos, then a tab per repo with an editor and an assistant",
+          "iterm": {
+            "window": "new",
+            "tabs": [
+              {
+                "title": "board",
+                "columns": [
+                  { "run": "jboard", "size": 3, "focus": true },
+                  { "rows": [{ "run": "punch" }, { "cwd": "~" }] }
+                ]
+              },
+              {
+                "title": "api",
+                "cwd": "api",
+                "columns": [
+                  { "run": "nvim", "size": 2 },
+                  { "run": "claude" }
+                ]
+              },
+              {
+                "title": "web",
+                "cwd": "web",
+                "columns": [
+                  { "run": "nvim", "size": 2 },
+                  { "rows": [{ "run": "claude", "size": 2 }, { "run": "npm run dev" }] }
+                ]
+              }
+            ]
+          }
+        },
+        "pull": {
+          "description": "Bring every repo up to date",
+          "run": "for repo in api web; do git -C \"$repo\" pull --ff-only; done"
+        }
+      }
+    },
+    "home": {
+      "cwd": "~/Developer",
+      "scripts": {
+        "blog": {
+          "iterm": {
+            "window": "current",
+            "tabs": [{ "title": "blog", "cwd": "blog", "columns": [{ "run": "nvim" }, { "run": "npm start" }] }]
+          }
+        }
+      }
+    }
+  }
+}
